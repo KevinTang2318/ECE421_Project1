@@ -4,16 +4,18 @@ import java.util.function.*;
 public class PickShareImperative {
     public static void main(String[] args) {
 
+        int limit = 500;
+
         ShareInfo highPriced = new ShareInfo("", BigDecimal.valueOf(0));
 
-        final Predicate<ShareInfo> isPriceLessThan500 = ShareUtil.isPriceLessThan(500);
+        final Predicate<ShareInfo> isPriceLessThanLimit = ShareUtil.isPriceLessThan(limit);
 
         for(String symbol : Shares.symbols) {
             ShareInfo shareInfo = ShareUtil.getPrice(symbol);
-            if(isPriceLessThan500.test(shareInfo))
+            if(isPriceLessThanLimit.test(shareInfo))
                 highPriced = ShareUtil.pickHigh(highPriced, shareInfo);
         }
 
-        System.out.println("High priced under $500 is " + highPriced);
+        System.out.println("High priced under $" + limit + " is " + highPriced);
     }
 }
